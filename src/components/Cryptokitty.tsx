@@ -70,10 +70,10 @@ export class Cryptokitty extends React.Component<ICryptokittyFeatures, ICryptoki
 	constructor(props) {
 		super(props);
 		this.state = {};
-		const body = props.body;
-		const pattern = props.pattern;
-		const mouth = props.mouth;
-		const eye = props.eye;
+		// const body = props.body;
+		// const pattern = props.pattern;
+		// const mouth = props.mouth;
+		// const eye = props.eye;
 
 		const colors = props.colors;
 		this.detectKittyColors = this.detectKittyColors.bind(this);

@@ -9078,10 +9078,10 @@ var Cryptokitty = /** @class */ (function (_super) {
     function Cryptokitty(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {};
-        var body = props.body;
-        var pattern = props.pattern;
-        var mouth = props.mouth;
-        var eye = props.eye;
+        // const body = props.body;
+        // const pattern = props.pattern;
+        // const mouth = props.mouth;
+        // const eye = props.eye;
         var colors = props.colors;
         _this.detectKittyColors = _this.detectKittyColors.bind(_this);
         _this.render = _this.render.bind(_this);
@@ -61802,6 +61802,8 @@ var About = /** @class */ (function (_super) {
     __extends(About, _super);
     function About(props) {
         var _this = _super.call(this, props) || this;
+        _this.cards = [];
+        _this.shouldCardsUpdate = false;
         // tslint:disable-next-line:member-ordering
         _this.state = {
             body: utils_1.randomEnumValue(Cryptokitty_1.BodyType),
@@ -61841,6 +61843,13 @@ var About = /** @class */ (function (_super) {
             kitties: this.state.kitties.concat(kitty)
         });
     };
+    About.prototype.shouldComponentUpdate = function (nextProps, nextState) {
+        console.debug('state: ', this.state.kitties);
+        console.debug('next state: ', nextState.kitties);
+        this.shouldCardsUpdate = this.state.kitties.length === nextState.kitties.length ? _.differenceWith(this.state.kitties, nextState.kitties, _.isEqual).length : true;
+        console.debug('shouldCardsUpdate: ', this.shouldCardsUpdate);
+        return true;
+    };
     About.prototype.render = function () {
         var _this = this;
         var onFieldChange = this.fieldChanged;
@@ -61852,6 +61861,9 @@ var About = /** @class */ (function (_super) {
         var openKittyUrl = function () {
             window.open(kittyFindUrl, '_blank');
         };
+        if (this.shouldCardsUpdate) {
+            this.cards = this.state.kitties;
+        }
         return (React.createElement(semantic_ui_react_1.Container, null,
             React.createElement(semantic_ui_react_1.Grid, null,
                 React.createElement(semantic_ui_react_1.Grid.Row, { style: { height: 350 } },
@@ -61912,7 +61924,7 @@ var About = /** @class */ (function (_super) {
                     React.createElement(semantic_ui_react_1.Button, { onClick: openKittyUrl }, " Find this kitty "),
                     React.createElement(semantic_ui_react_1.Button, { onClick: addKitty }, " Add this kitty ")),
                 React.createElement(semantic_ui_react_1.Grid.Row, null),
-                React.createElement(semantic_ui_react_1.Grid.Row, null, _.map(this.state.kitties, function (kitty) {
+                React.createElement(semantic_ui_react_1.Grid.Row, null, _.map(this.cards, function (kitty) {
                     var key = _.map(kitty, function (k) { return k; }).join('');
                     return React.createElement(KittyCard_1.default, { key: key, kitty: kitty });
                 })))));
@@ -62111,7 +62123,7 @@ var KittyCard = /** @class */ (function (_super) {
             backgroundColor: this.hexToRgbA(c.EyeColor[eyeColor])
         };
         return (React.createElement("div", { style: __assign({}, styles.card, bgStyle) },
-            React.createElement(Cryptokitty_1.Cryptokitty, { body: body, mouth: mouth, eye: eye, pattern: pattern, colors: [c.Primary[primary], c.Secondary[secondary], c.Tertiary[tertiary], c.EyeColor[eyeColor]] })));
+            React.createElement(Cryptokitty_1.Cryptokitty, { body: body, mouth: mouth, eye: eye, pattern: pattern, colors: [c.Primary[primary], c.Secondary[secondary], c.Tertiary[tertiary], c.EyeColor[eyeColor]], isSpecial: true })));
     };
     return KittyCard;
 }(React.Component));
