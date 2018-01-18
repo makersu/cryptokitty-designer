@@ -66,7 +66,7 @@ interface ICryptokittyState {
 }
 
 export class Cryptokitty extends React.Component<ICryptokittyFeatures, ICryptokittyState> {
-	static private cache = {};
+	private static cache = {};
 	constructor(props) {
 		super(props);
 		this.state = {};
@@ -130,9 +130,9 @@ export class Cryptokitty extends React.Component<ICryptokittyFeatures, ICryptoki
 		}
 		const { body, pattern, mouth, eye, colors } = this.props;
 
-		let kittyImage = genes[`${this.props.body}-${this.props.pattern}`];
-		let kittyMouth = genes[this.props.mouth];
-		let kittyEye = genes[this.props.eye];
+		let kittyImage = genes[`${body}-${pattern}`];
+		let kittyMouth = genes[mouth];
+		let kittyEye = genes[eye];
 
 		const bodyColors = this.detectKittyColors(kittyImage);
 		const eyeColors = this.detectKittyColors(kittyEye);
