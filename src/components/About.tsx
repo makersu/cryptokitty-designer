@@ -10,6 +10,7 @@ import * as c from '../cattributes/colors';
 import { randomEnumValue, randomKey } from '../utils';
 
 import * as _ from 'lodash';
+
 export class About extends React.Component {
 
 	constructor(props) {
@@ -72,8 +73,8 @@ export class About extends React.Component {
 		return (
 			<Container>
 				<Grid>
-					<Grid.Row style={{height: 300}}>
-						<Grid.Column width={4}>
+					<Grid.Row style={{height: 350}}>
+						<Grid.Column width={6}>
 							<Cryptokitty
 								key={2}
 								body={body}
@@ -83,6 +84,132 @@ export class About extends React.Component {
 								colors={[ c.Primary[primary], c.Secondary[secondary], c.Tertiary[tertiary], c.EyeColor[eyeColor]]}
 							/>
 						</Grid.Column>
+						<Grid.Column width={10}>
+							<div className='ui form'>
+								<div className='fields'>
+									<label>Body</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(BodyType), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input value={k} onChange={onFieldChange} type='radio' name='body' checked={this.state.body === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+
+								<div className='fields'>
+									<label>Pattern</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(PatternType), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input value={k} onChange={onFieldChange} type='radio' name='pattern' checked={this.state.pattern === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+
+								<div className='fields'>
+									<label>Eyes</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(EyeType), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input value={k} onChange={onFieldChange} type='radio' name='eye' checked={this.state.eye === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+								<div className='fields'>
+									<label>Mouth</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(MouthType), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input value={k} onChange={onFieldChange} type='radio' name='mouth' checked={this.state.mouth === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+								<div className='fields'>
+									<label>Primary Color</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(c.Primary), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input onChange={onFieldChange} value={k} type='radio' name='primary' checked={this.state.primary === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+								<div className='fields'>
+									<label>Secondary</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(c.Secondary), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input value={k} onChange={onFieldChange} type='radio' name='secondary' checked={this.state.secondary === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+								<div className='fields'>
+									<label>Tertiary</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(c.Tertiary), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input value={k} onChange={onFieldChange} type='radio' name='tertiary' checked={this.state.tertiary === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+								<div className='fields'>
+									<label>Eye</label>
+									<div className="choices">
+										{
+											_.map(Object.keys(c.EyeColor), (k) => (
+												<div className='field' key={k}>
+												<div className='ui radio checkbox'>
+													<input value={k} onChange={onFieldChange} type='radio' name='eyeColor' checked={this.state.eyeColor === k}/>
+													<label>{k}</label>
+												</div>
+												</div>
+											))
+										}
+									</div>
+								</div>
+							</div>
+						</Grid.Column>						
 					</Grid.Row>
 					<Grid.Row>
 							<Button onClick={randomKitty}> Random kitty </Button>
@@ -90,114 +217,7 @@ export class About extends React.Component {
 							<Button onClick={addKitty}> Add this kitty </Button>
 					</Grid.Row>
 					<Grid.Row>
-						<div className='ui form'>
-							<div className='fields'>
-								<label>Body</label>
-								{
-									_.map(Object.keys(BodyType), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input value={k} onChange={onFieldChange} type='radio' name='body' checked={this.state.body === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-
-							<div className='fields'>
-								<label>Pattern</label>
-								{
-									_.map(Object.keys(PatternType), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input value={k} onChange={onFieldChange} type='radio' name='pattern' checked={this.state.pattern === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-
-							<div className='fields'>
-								<label>Eyes</label>
-								{
-									_.map(Object.keys(EyeType), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input value={k} onChange={onFieldChange} type='radio' name='eye' checked={this.state.eye === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-							<div className='fields'>
-								<label>Mouth</label>
-								{
-									_.map(Object.keys(MouthType), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input value={k} onChange={onFieldChange} type='radio' name='mouth' checked={this.state.mouth === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-							<div className='fields'>
-								<label>Primary Color</label>
-								{
-									_.map(Object.keys(c.Primary), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input onChange={onFieldChange} value={k} type='radio' name='primary' checked={this.state.primary === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-							<div className='fields'>
-								<label>Secondary</label>
-								{
-									_.map(Object.keys(c.Secondary), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input value={k} onChange={onFieldChange} type='radio' name='secondary' checked={this.state.secondary === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-							<div className='fields'>
-								<label>Tertiary</label>
-								{
-									_.map(Object.keys(c.Tertiary), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input value={k} onChange={onFieldChange} type='radio' name='tertiary' checked={this.state.tertiary === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-							<div className='fields'>
-								<label>Eye</label>
-								{
-									_.map(Object.keys(c.EyeColor), (k) => (
-										<div className='field' key={k}>
-										<div className='ui radio checkbox'>
-											<input value={k} onChange={onFieldChange} type='radio' name='eyeColor' checked={this.state.eyeColor === k}/>
-											<label>{k}</label>
-										</div>
-										</div>
-									))
-								}
-							</div>
-						</div>
+						
 					</Grid.Row>
 					<Grid.Row>
 						{ _.map(this.state.kitties, kitty => {

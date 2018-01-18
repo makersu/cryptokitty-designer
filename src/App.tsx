@@ -17,13 +17,16 @@ export class App extends React.Component<{}, {}> {
 				<Grid style={{paddingTop: 10}}>
 					<Grid.Row>
 						<Container text={true}>
-							<p>
-								<b> CryptoKitty Designer </b>
-								<p> Make the kitty of your dreams </p>
-								<p/>
-								Kittens and ETH appreciated <span> @ </span>
-								<Input value={'0x02Ee97a13e434717e3FFa12758a235D1a1680775'}/>
-							</p>
+							<div className="header">
+								<div>
+									<b> CryptoKitty Designer </b>
+									<div> Make the kitty of your dreams </div>
+								</div>
+								<div>
+									Kittens and ETH appreciated <span> @ </span>
+									<Input value={'0x02Ee97a13e434717e3FFa12758a235D1a1680775'}/>
+								</div>
+							</div>
 						</Container>
 					</Grid.Row>
 					<Grid.Row >

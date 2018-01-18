@@ -1,0 +1,61 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#app > .ui.grid > .row:first-child {
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(168, 168, 168, .2);
+  padding: 10px 30px;
+  background-color: rgba(32, 178, 170, .15);
+}
+
+.ui.container {
+  width: 1440px;
+}
+.ui.text.container {
+  max-width: inherit !important;
+}
+.ui.checkbox input[type=radio] {
+  width: 100%;  
+}
+.ui.checkbox input[type=radio] + label {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  padding: 5px 8px;
+  line-height: 1;
+}
+.ui.checkbox input[type=radio]:checked + label {
+  background-color: lightseagreen;
+  border: none;
+  color: white;
+}
+
+.ui.radio.checkbox label:before, .ui.radio.checkbox label:after {
+  display: none;
+}
+
+.ui.form .fields {
+  background-color: #ddd;
+  margin: 0;
+  padding: 3px 12px;
+}
+.ui.form .fields:nth-child(even) {
+  background-color: white;
+}
+.fields label {
+  color: #315281;
+  font-weight: 600;
+  min-width: 70px;
+}
+.ui.form .fields .field {
+  padding: 3px 5px;
+}
+.choices {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+ 
