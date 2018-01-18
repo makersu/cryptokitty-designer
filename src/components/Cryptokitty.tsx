@@ -70,10 +70,10 @@ export class Cryptokitty extends React.Component<ICryptokittyFeatures, ICryptoki
 	constructor(props) {
 		super(props);
 		this.state = {};
-		const body = props.body;
-		const pattern = props.pattern;
-		const mouth = props.mouth;
-		const eye = props.eye;
+		// const body = props.body;
+		// const pattern = props.pattern;
+		// const mouth = props.mouth;
+		// const eye = props.eye;
 
 		const colors = props.colors;
 		this.detectKittyColors = this.detectKittyColors.bind(this);
@@ -89,7 +89,7 @@ export class Cryptokitty extends React.Component<ICryptokittyFeatures, ICryptoki
 		this.setState({ genes });
 	}
 
-	public async componentDidReceiveProps() {
+	public async componentWillReceiveProps() {
 		const { body, pattern, mouth, eye } = this.props;
 		const colors = this.props.colors || [
 			c.Primary.shadowgrey, c.Secondary.kittencream, c.Tertiary.royalpurple, c.EyeColor.bubblegum

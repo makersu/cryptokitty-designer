@@ -9078,10 +9078,10 @@ var Cryptokitty = /** @class */ (function (_super) {
     function Cryptokitty(props) {
         var _this = _super.call(this, props) || this;
         _this.state = {};
-        var body = props.body;
-        var pattern = props.pattern;
-        var mouth = props.mouth;
-        var eye = props.eye;
+        // const body = props.body;
+        // const pattern = props.pattern;
+        // const mouth = props.mouth;
+        // const eye = props.eye;
         var colors = props.colors;
         _this.detectKittyColors = _this.detectKittyColors.bind(_this);
         _this.render = _this.render.bind(_this);
@@ -9106,7 +9106,7 @@ var Cryptokitty = /** @class */ (function (_super) {
             });
         });
     };
-    Cryptokitty.prototype.componentDidReceiveProps = function () {
+    Cryptokitty.prototype.componentWillReceiveProps = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, body, pattern, mouth, eye, colors;
             return __generator(this, function (_b) {
@@ -42490,13 +42490,14 @@ var App = /** @class */ (function (_super) {
             React.createElement(semantic_ui_react_1.Grid, { style: { paddingTop: 10 } },
                 React.createElement(semantic_ui_react_1.Grid.Row, null,
                     React.createElement(semantic_ui_react_2.Container, { text: true },
-                        React.createElement("p", null,
-                            React.createElement("b", null, " CryptoKitty Designer "),
-                            React.createElement("p", null, " Make the kitty of your dreams "),
-                            React.createElement("p", null),
-                            "Kittens and ETH appreciated ",
-                            React.createElement("span", null, " @ "),
-                            React.createElement(semantic_ui_react_1.Input, { value: '0x02Ee97a13e434717e3FFa12758a235D1a1680775' })))),
+                        React.createElement("div", { className: "header" },
+                            React.createElement("div", null,
+                                React.createElement("b", null, " CryptoKitty Designer "),
+                                React.createElement("div", null, " Make the kitty of your dreams ")),
+                            React.createElement("div", null,
+                                "Kittens and ETH appreciated ",
+                                React.createElement("span", null, " @ "),
+                                React.createElement(semantic_ui_react_1.Input, { value: '0x02Ee97a13e434717e3FFa12758a235D1a1680775' }))))),
                 React.createElement(semantic_ui_react_1.Grid.Row, null,
                     React.createElement(semantic_ui_react_1.Grid.Column, { width: 16 },
                         React.createElement(react_router_dom_1.Route, { path: '/', component: About_1.About }))))));
@@ -61801,6 +61802,8 @@ var About = /** @class */ (function (_super) {
     __extends(About, _super);
     function About(props) {
         var _this = _super.call(this, props) || this;
+        _this.cards = [];
+        _this.shouldCardsUpdate = false;
         // tslint:disable-next-line:member-ordering
         _this.state = {
             body: utils_1.randomEnumValue(Cryptokitty_1.BodyType),
@@ -61840,6 +61843,13 @@ var About = /** @class */ (function (_super) {
             kitties: this.state.kitties.concat(kitty)
         });
     };
+    About.prototype.shouldComponentUpdate = function (nextProps, nextState) {
+        console.debug('state: ', this.state.kitties);
+        console.debug('next state: ', nextState.kitties);
+        this.shouldCardsUpdate = this.state.kitties.length === nextState.kitties.length ? _.differenceWith(this.state.kitties, nextState.kitties, _.isEqual).length : true;
+        console.debug('shouldCardsUpdate: ', this.shouldCardsUpdate);
+        return true;
+    };
     About.prototype.render = function () {
         var _this = this;
         var onFieldChange = this.fieldChanged;
@@ -61851,66 +61861,70 @@ var About = /** @class */ (function (_super) {
         var openKittyUrl = function () {
             window.open(kittyFindUrl, '_blank');
         };
+        if (this.shouldCardsUpdate) {
+            this.cards = this.state.kitties;
+        }
         return (React.createElement(semantic_ui_react_1.Container, null,
             React.createElement(semantic_ui_react_1.Grid, null,
-                React.createElement(semantic_ui_react_1.Grid.Row, { style: { height: 300 } },
-                    React.createElement(semantic_ui_react_1.Grid.Column, { width: 4 },
-                        React.createElement(Cryptokitty_1.Cryptokitty, { key: 2, body: body, mouth: mouth, eye: eye, pattern: pattern, colors: [c.Primary[primary], c.Secondary[secondary], c.Tertiary[tertiary], c.EyeColor[eyeColor]] }))),
+                React.createElement(semantic_ui_react_1.Grid.Row, { style: { height: 350 } },
+                    React.createElement(semantic_ui_react_1.Grid.Column, { width: 6 },
+                        React.createElement(Cryptokitty_1.Cryptokitty, { key: 2, body: body, mouth: mouth, eye: eye, pattern: pattern, colors: [c.Primary[primary], c.Secondary[secondary], c.Tertiary[tertiary], c.EyeColor[eyeColor]] })),
+                    React.createElement(semantic_ui_react_1.Grid.Column, { width: 10 },
+                        React.createElement("div", { className: 'ui form' },
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Body"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(Cryptokitty_1.BodyType), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'body', checked: _this.state.body === k }),
+                                        React.createElement("label", null, k)))); }))),
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Pattern"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(Cryptokitty_1.PatternType), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'pattern', checked: _this.state.pattern === k }),
+                                        React.createElement("label", null, k)))); }))),
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Eyes"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(Cryptokitty_1.EyeType), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'eye', checked: _this.state.eye === k }),
+                                        React.createElement("label", null, k)))); }))),
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Mouth"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(Cryptokitty_1.MouthType), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'mouth', checked: _this.state.mouth === k }),
+                                        React.createElement("label", null, k)))); }))),
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Primary Color"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(c.Primary), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { onChange: onFieldChange, value: k, type: 'radio', name: 'primary', checked: _this.state.primary === k }),
+                                        React.createElement("label", null, k)))); }))),
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Secondary"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(c.Secondary), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'secondary', checked: _this.state.secondary === k }),
+                                        React.createElement("label", null, k)))); }))),
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Tertiary"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(c.Tertiary), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'tertiary', checked: _this.state.tertiary === k }),
+                                        React.createElement("label", null, k)))); }))),
+                            React.createElement("div", { className: 'fields' },
+                                React.createElement("label", null, "Eye"),
+                                React.createElement("div", { className: "choices" }, _.map(Object.keys(c.EyeColor), function (k) { return (React.createElement("div", { className: 'field', key: k },
+                                    React.createElement("div", { className: 'ui radio checkbox' },
+                                        React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'eyeColor', checked: _this.state.eyeColor === k }),
+                                        React.createElement("label", null, k)))); })))))),
                 React.createElement(semantic_ui_react_1.Grid.Row, null,
                     React.createElement(semantic_ui_react_1.Button, { onClick: randomKitty }, " Random kitty "),
                     React.createElement(semantic_ui_react_1.Button, { onClick: openKittyUrl }, " Find this kitty "),
                     React.createElement(semantic_ui_react_1.Button, { onClick: addKitty }, " Add this kitty ")),
-                React.createElement(semantic_ui_react_1.Grid.Row, null,
-                    React.createElement("div", { className: 'ui form' },
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Body"),
-                            _.map(Object.keys(Cryptokitty_1.BodyType), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'body', checked: _this.state.body === k }),
-                                    React.createElement("label", null, k)))); })),
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Pattern"),
-                            _.map(Object.keys(Cryptokitty_1.PatternType), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'pattern', checked: _this.state.pattern === k }),
-                                    React.createElement("label", null, k)))); })),
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Eyes"),
-                            _.map(Object.keys(Cryptokitty_1.EyeType), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'eye', checked: _this.state.eye === k }),
-                                    React.createElement("label", null, k)))); })),
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Mouth"),
-                            _.map(Object.keys(Cryptokitty_1.MouthType), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'mouth', checked: _this.state.mouth === k }),
-                                    React.createElement("label", null, k)))); })),
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Primary Color"),
-                            _.map(Object.keys(c.Primary), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { onChange: onFieldChange, value: k, type: 'radio', name: 'primary', checked: _this.state.primary === k }),
-                                    React.createElement("label", null, k)))); })),
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Secondary"),
-                            _.map(Object.keys(c.Secondary), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'secondary', checked: _this.state.secondary === k }),
-                                    React.createElement("label", null, k)))); })),
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Tertiary"),
-                            _.map(Object.keys(c.Tertiary), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'tertiary', checked: _this.state.tertiary === k }),
-                                    React.createElement("label", null, k)))); })),
-                        React.createElement("div", { className: 'fields' },
-                            React.createElement("label", null, "Eye"),
-                            _.map(Object.keys(c.EyeColor), function (k) { return (React.createElement("div", { className: 'field', key: k },
-                                React.createElement("div", { className: 'ui radio checkbox' },
-                                    React.createElement("input", { value: k, onChange: onFieldChange, type: 'radio', name: 'eyeColor', checked: _this.state.eyeColor === k }),
-                                    React.createElement("label", null, k)))); })))),
-                React.createElement(semantic_ui_react_1.Grid.Row, null, _.map(this.state.kitties, function (kitty) {
+                React.createElement(semantic_ui_react_1.Grid.Row, null),
+                React.createElement(semantic_ui_react_1.Grid.Row, null, _.map(this.cards, function (kitty) {
                     var key = _.map(kitty, function (k) { return k; }).join('');
                     return React.createElement(KittyCard_1.default, { key: key, kitty: kitty });
                 })))));
@@ -62109,7 +62123,7 @@ var KittyCard = /** @class */ (function (_super) {
             backgroundColor: this.hexToRgbA(c.EyeColor[eyeColor])
         };
         return (React.createElement("div", { style: __assign({}, styles.card, bgStyle) },
-            React.createElement(Cryptokitty_1.Cryptokitty, { body: body, mouth: mouth, eye: eye, pattern: pattern, colors: [c.Primary[primary], c.Secondary[secondary], c.Tertiary[tertiary], c.EyeColor[eyeColor]] })));
+            React.createElement(Cryptokitty_1.Cryptokitty, { body: body, mouth: mouth, eye: eye, pattern: pattern, colors: [c.Primary[primary], c.Secondary[secondary], c.Tertiary[tertiary], c.EyeColor[eyeColor]], isSpecial: true })));
     };
     return KittyCard;
 }(React.Component));
