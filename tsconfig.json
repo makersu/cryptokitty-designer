@@ -10,12 +10,13 @@
         "jsx": "react",
         "lib": ["es2015", "dom"],
         "types": [
-            "jest"
+            "jest",
+            "node"
         ],
         "externals": {
             "react": "React",
             "react-dom": "ReactDOM"
-        }
+        },
     },
     "include": [
         "./src/**/*"
